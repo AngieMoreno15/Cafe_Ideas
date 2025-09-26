@@ -7,6 +7,12 @@ import { useNavigate } from "react-router-dom";
 import cafeImg from "../assets/Hero/create.jpg";
 import Swal from "sweetalert2";
 
+/**
+ * Componente para crear un nuevo post
+ * Permite añadir título, contenido e imagen.
+ * Solo usuarios autenticados pueden crear posts.
+ */
+
 const CreatePost = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -16,6 +22,7 @@ const CreatePost = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
+  // Manejo de archivo seleccionado
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -23,6 +30,7 @@ const CreatePost = () => {
     setPreview(URL.createObjectURL(file));
   };
 
+  // Envío del formulario para crear post
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -67,14 +75,15 @@ const CreatePost = () => {
 
   return (
     <div>
+      {/* Navbar */}
       <Navbar />
 
-      {/* Hero pequeño */}
+      {/* Hero */}
       <div className="relative w-full h-48">
         <img src={cafeImg} alt="café" className="w-full h-full object-cover" />
       </div>
 
-      {/* Card blanca del título */}
+      {/* Título de la sección */}
       <div className="max-w-3xl mx-auto -mt-12 bg-white p-6 rounded-xl shadow-md text-center relative z-10">
         <h1 className="text-3xl font-bold text-[#3C6373]">Crear Nuevo Post</h1>
       </div>
@@ -107,7 +116,7 @@ const CreatePost = () => {
             required
           />
 
-          {/* Input de imagen customizado */}
+          {/* Subir imagen */}
           <label className="bg-[#9ECAD6] hover:bg-[#F5CBCB] text-[#000] px-4 py-2 rounded cursor-pointer w-max">
             Subir imagen
             <input
@@ -118,7 +127,7 @@ const CreatePost = () => {
             />
           </label>
 
-          {/* Preview */}
+          {/* Preview de imagen */}
           {preview && (
             <img
               src={preview}
@@ -136,6 +145,7 @@ const CreatePost = () => {
         </form>
       </div>
 
+      {/* Footer */}
       <Footer />
     </div>
   )

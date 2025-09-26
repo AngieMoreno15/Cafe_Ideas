@@ -5,23 +5,29 @@ import Hero from "../components/HeroSection";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+/**
+ * Componente de la página de inicio
+ * Muestra la barra de navegación, sección Hero y los posts destacados.
+ */
 
 const Home = () => {
+  // Estado de los posts destacados
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+  // Cargar posts al montar el componente
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/posts');
-        const allPosts = response.data; // Asegúrate de acceder a 'data'
+        const allPosts = response.data; 
         
         if (!allPosts) {
           console.error("No se encontraron posts");
           return;
         }
 
-        // Ordenamos por fecha y tomamos solo los 3 primeros
+        // Ordenar por fecha descendente y tomar los 3 primeros
         const sortedPosts = allPosts
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .slice(0, 3);
@@ -37,9 +43,13 @@ const Home = () => {
 
   return (
     <div>
+      {/* Barra de navegación */}
       <Navbar />
+
+      {/* Sección Hero */}
       <Hero />
 
+      {/* Sección de posts destacados */}
       <section className="max-w-6xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 mt-16 text-center">Posts destacados</h2>
         <div className="grid md:grid-cols-3 gap-6">
@@ -78,6 +88,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   )

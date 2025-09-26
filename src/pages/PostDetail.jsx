@@ -1,23 +1,34 @@
+// React y hooks
 import React, { useEffect, useState, useContext } from "react";
+
+// Hooks de React Router
 import { useParams, useNavigate } from "react-router-dom";
+
+// Cliente HTTP
 import axios from "axios";
+
+// Componentes reutilizables
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+// Contexto de autenticación
 import { AuthContext } from "../context/AuthContext";
 
 const PostDetail = () => {
   const { id } = useParams(); // trae el id del post de la URL
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);// usuario logueado
 
   const [post, setPost] = useState(null);
 
+  // Cargar post desde la API
   useEffect(() => {
     axios.get(`http://localhost:5000/api/posts/${id}`)
       .then((res) => setPost(res.data))
       .catch((err) => console.error(err));
   }, [id]);
 
+  // Eliminar post
   const handleDelete = () => {
     axios.delete(`http://localhost:5000/api/posts/${id}`, {
       headers: {
@@ -28,6 +39,7 @@ const PostDetail = () => {
     .catch((err) => console.error(err));
   };
 
+  // Editar post
   const handleEdit = () => {
     navigate(`/edit/${id}`);
   };
@@ -69,8 +81,10 @@ const PostDetail = () => {
             {post.author.name} | {new Date(post.createdAt).toLocaleDateString()}
           </p>
 
+          {/* Título */}
           <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
 
+          {/* Imagen */}
           {imageSrc && (
             <img
               src={imageSrc}
@@ -79,9 +93,10 @@ const PostDetail = () => {
             />
           )}
 
+          {/* Contenido */}
           <p className="text-gray-800 whitespace-pre-line break-words">{post.content}</p>
 
-          {/* Botón Volver alineado a la derecha y con color suave */}
+          {/* Botón Volver */}
           <div className="flex justify-end mt-4">
             <button
               onClick={() => navigate("/blog")}

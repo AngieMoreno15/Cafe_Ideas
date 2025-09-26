@@ -16,6 +16,7 @@ import img12 from "../assets/Album/Album (12).jpg";
 import img13 from "../assets/Album/Album (13).jpg";
 import img14 from "../assets/Album/Album (14).jpg";
 
+
 const PhotosPage = () => {
   return (
     <section className="container mx-auto px-6 py-12">
@@ -23,6 +24,7 @@ const PhotosPage = () => {
         Galería de momentos
       </h2>
 
+      {/* Galería dinámica */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <img src={img1} alt="foto1" className="w-full h-64 object-cover rounded-xl lg:col-span-2" />
         <img src={img2} alt="foto2" className="w-full h-64 object-cover rounded-xl" />

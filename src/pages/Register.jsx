@@ -1,10 +1,12 @@
 import React from 'react'
-import Register_ from "../components/InfoRegister";
+// Componente que contiene el formulario de registro de usuarios
+import RegisterForm from "../components/InfoRegister";
 
 const Register = () => {
   return (
     <div>
-      <Register_/>
+      {/* Mostrar el formulario de registro */}
+      <RegisterForm />
     </div>
   )
 }

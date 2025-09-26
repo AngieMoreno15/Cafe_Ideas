@@ -133,15 +133,32 @@ npm run dev
 ---
 
 ## 🗂 Endpoints principales (API REST)
-Posts
-* GET /api/posts → Listar publicaciones
-* GET /api/posts/:id → Ver publicación específica
-* POST /api/posts → Crear publicación
-* PUT /api/posts/:id → Editar publicación
-* DELETE /api/posts/:id → Eliminar publicación
+1️⃣ Autenticación
+* POST http://localhost:5000/api/auth/register → Registrar un nuevo usuario.
+* POST http://localhost:5000/api/auth/login → Iniciar sesión y obtener token JWT.
+```json
+{
+  "msg": "Login exitoso",
+  "token": "<JWT_TOKEN>",
+  "user": {
+    "id": "123456",
+    "name": "Nova",
+    "email": "nova@cafe.com"
+  }
+}
+```
+| 🔑 IMPORTANTE: Para endpoints protegidos, usar el token JWT en headers:
+```makefile
+Key: Authorization
+Value: Bearer <JWT_TOKEN>
+```
+2️⃣ Posts
+* GET http://localhost:5000/api/posts → Listar todas las publicaciones.
+* GET http://localhost:5000/api/posts/:id → Ver publicación específica.
+* POST http://localhost:5000/api/posts → Crear una publicación (requiere token).
+* PUT http://localhost:5000/api/posts/:id → Editar publicación (requiere token).
+* DELETE http://localhost:5000/api/posts/:id → Eliminar publicación (requiere token).
 
-Autenticación
-* POST /api/auth/register
-* POST /api/auth/login
-
+3️⃣ Usuarios (opcional)
+*GET http://localhost:5000/api/users → Listar usuarios registrados (requiere token y permisos).
 ---

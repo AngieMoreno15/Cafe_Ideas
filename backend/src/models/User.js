@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+/**
+ * 📌 Esquema de usuarios (User)
+ *
+ * Campos:
+ * - name: Nombre del usuario (obligatorio, con espacios recortados).
+ * - email: Correo electrónico único, convertido siempre a minúsculas.
+ * - password: Contraseña encriptada (obligatoria).
+ * 
+ * Opciones:
+ * - timestamps: agrega automáticamente `createdAt` y `updatedAt`.
+ */
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -9,6 +20,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Exportamos el modelo
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

@@ -26,7 +26,7 @@ const PostCard = ({ post}) => {
   }, []);
 
   const handleClick = () => {
-    navigate(`/post/${post._id}`); // va a página de detalle
+    navigate(`/post/${post._id}`); // Navega a la página de detalle
   };
 
   const isAuthor = user && String(user.id) === String(post.author._id);
@@ -39,7 +39,7 @@ const PostCard = ({ post}) => {
       className="relative cursor-pointer border rounded-xl shadow-xl hover:shadow-2xl transition-all overflow-hidden mb-6 mx-auto w-full max-w-5xl flex h-[200px]"
 
     >
-      {/* Imagen a la izquierda con tamaño fijo */}
+      {/* Imagen fija al costado izquierdo para mantener consistencia visual */}
       <div className="w-56 h-56 flex-shrink-0">
         {post.imageUrl ? (
           <img
@@ -54,7 +54,7 @@ const PostCard = ({ post}) => {
         )}
       </div>
 
-      {/* Contenido */}
+      {/* Contenido del post */}
       <div className="p-4 flex-1 flex flex-col justify-between overflow-hidden">
         <div>
           <h2 className="text-2xl font-bold mb-1 break-words">{post.title}</h2>

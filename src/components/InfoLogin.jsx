@@ -4,15 +4,27 @@ import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 
 const InfoLogin = () => {
+  // Estados controlados para los campos del formulario
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Contexto de autenticación (maneja el login global)
   const { login } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+    /**
+   * Maneja el inicio de sesión
+   * 1. Envía credenciales al backend.
+   * 2. Guarda el usuario y token en el contexto global si es exitoso.
+   * 3. Muestra alertas con SweetAlert según el resultado.
+   */
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
+    // Petición POST al backend para login
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: {
@@ -24,10 +36,12 @@ const InfoLogin = () => {
     const data = await res.json();
 
     if (res.ok) {
+      // Guardamos usuario y token en el contexto de Auth
       login(data.user, data.token);
       
       console.log("Login exitoso ✅", data);
 
+      // Notificación de éxito
       Swal.fire({
         icon: 'success',
         title: '¡Login exitoso!',
@@ -36,8 +50,10 @@ const InfoLogin = () => {
         showConfirmButton: false
       });
 
+      // Redirigir al home
       navigate("/");
     } else {
+      // Error controlado (ej: credenciales inválidas)
       Swal.fire({
         icon: 'error',
         title: 'Error al iniciar sesión',
@@ -45,6 +61,7 @@ const InfoLogin = () => {
       });
     }
   } catch (error) {
+    // Error de conexión o servidor caído
     console.error("Error en login:", error);
     Swal.fire({
       icon: 'error',
@@ -54,6 +71,9 @@ const InfoLogin = () => {
   }
 };
 
+  /**
+   * Redirige al home ("/")
+   */
   const goHome = () => {
     navigate('/');
   };
@@ -61,11 +81,14 @@ const InfoLogin = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#8B5E3C] to-[#F7C6C7]">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        {/* Título del formulario */}
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Iniciar Sesión
         </h1>
 
+        {/* Formulario de login */}
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Campo Email */}
           <div>
             <label className="block text-gray-700 mb-1">Correo electrónico</label>
             <input
@@ -78,6 +101,7 @@ const InfoLogin = () => {
             />
           </div>
 
+          {/* Campo Password */}
           <div>
             <label className="block text-gray-700 mb-1">Contraseña</label>
             <input

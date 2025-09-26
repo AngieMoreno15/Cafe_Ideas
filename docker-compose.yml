@@ -1,36 +1,51 @@
+# ========================================
+# Docker Compose para la app Café Ideas
+# ========================================
 version: "3.9"
 
 services:
+  # -----------------------
+  # Servicio Frontend
+  # -----------------------
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: .                   # Contexto de construcción: raíz del proyecto
+      dockerfile: Dockerfile.frontend # Dockerfile específico para frontend
     ports:
-      - "8080:80"
+      - "8080:80"                  # Mapea puerto 80 del contenedor al 8080 del host
     depends_on:
-      - backend
+      - backend                    # Espera a que el backend esté disponible
     environment:
-      - VITE_API_URL=http://backend:5000
+      - VITE_API_URL=http://backend:5000  # Variable de entorno para la URL del API
 
+  # -----------------------
+  # Servicio Backend
+  # -----------------------
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./backend           # Contexto de construcción: carpeta backend
+      dockerfile: Dockerfile       # Dockerfile del backend
     ports:
-      - "5000:5000"
+      - "5000:5000"                # Mapea puerto 5000 del contenedor al host
     environment:
-      - MONGO_URI=mongodb://mongo:27017/cafe_db
-      - JWT_SECRET=${JWT_SECRET}
+      - MONGO_URI=mongodb://mongo:27017/cafe_db  # URL de conexión a MongoDB
+      - JWT_SECRET=${JWT_SECRET}                    # Clave secreta para JWT (desde .env)
     depends_on:
-      - mongo
+      - mongo                      # Espera a que MongoDB esté disponible
 
+  # -----------------------
+  # Servicio MongoDB
+  # -----------------------
   mongo:
-    image: mongo:6.0
-    restart: always
+    image: mongo:6.0               # Imagen oficial de MongoDB
+    restart: always                # Reinicia automáticamente si falla
     volumes:
-      - mongo_data:/data/db
+      - mongo_data:/data/db        # Persistencia de datos
     ports:
-      - "27017:27017"
+      - "27017:27017"              # Mapea puerto 27017 del contenedor al host
 
+# -----------------------
+# Volúmenes persistentes
+# -----------------------
 volumes:
-  mongo_data:
+  mongo_data:                       # Volumen para persistencia de la base de datos

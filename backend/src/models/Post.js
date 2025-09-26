@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+/**
+ * 📌 Esquema de publicaciones (Post)
+ * 
+ * Campos:
+ * - title: Título de la publicación (obligatorio).
+ * - content: Contenido de la publicación (obligatorio).
+ * - imageUrl: Ruta de la imagen asociada (opcional).
+ * - createdAt: Fecha de creación (se asigna automáticamente).
+ * - author: Referencia al usuario creador (obligatorio, referencia al modelo "User").
+ */
 const PostSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
