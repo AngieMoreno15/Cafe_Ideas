@@ -160,5 +160,5 @@ Value: Bearer <JWT_TOKEN>
 * DELETE http://localhost:5000/api/posts/:id → Eliminar publicación (requiere token).
 
 3️⃣ Usuarios (opcional)
-*GET http://localhost:5000/api/users → Listar usuarios registrados (requiere token y permisos).
+* GET http://localhost:5000/api/users → Listar usuarios registrados (requiere token y permisos).
 ---
